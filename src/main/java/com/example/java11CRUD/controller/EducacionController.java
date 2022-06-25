@@ -4,8 +4,10 @@ package com.example.java11CRUD.controller;
 import java.util.List;
 import com.example.java11CRUD.model.Educacion;
 import com.example.java11CRUD.service.EducacionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,18 +20,31 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/educacion")
-
+@Controller
 public class EducacionController {
 
+    @Autowired
     private final EducacionService educacionService;
 
     public EducacionController (EducacionService educacionService){
         this.educacionService = educacionService;
     }
+    /*
     @PutMapping("/update")
     public ResponseEntity <Educacion> editarEducacion(@RequestBody Educacion educacion){
         Educacion updateEducacion = educacionService.editarEducacion(educacion);
         return new ResponseEntity<>(updateEducacion,HttpStatus.OK);
+    }
+    */
+    @PutMapping("/update/{id}")
+    public Educacion educacion (@RequestBody Educacion educacion,@PathVariable Long id){
+        Educacion educacionActual = educacionService.buscarEducacion(id);
+        educacionActual.setTituloEdu(educacion.getTituloEdu());
+        educacionActual.setDescEdu(educacion.getDescEdu());
+        educacionActual.setFechaEdu(educacion.getFechaEdu());
+
+        return educacionService.addEducation(educacionActual);
+
     }
 
     @GetMapping("/all")
@@ -47,6 +62,8 @@ public class EducacionController {
         educacionService.borrarEducacion(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    //Y con esto podemos integrar el MVC con la parte de acceso a datos que es Spring JPA repository.
     
 
     

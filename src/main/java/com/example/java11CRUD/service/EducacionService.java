@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 
 public class EducacionService {
 
+    @Autowired
     private final  EducacionRepo educacionRepo;
 
-    @Autowired
     public EducacionService (EducacionRepo educacionRepo){
         this.educacionRepo = educacionRepo;
     }
@@ -31,5 +31,9 @@ public class EducacionService {
     }
     public void borrarEducacion (Long id){
         educacionRepo.deleteById(id);
+    }
+
+    public Educacion buscarEducacion(Long id) {
+        return educacionRepo.findById(id).orElse(null);
     }
 }
