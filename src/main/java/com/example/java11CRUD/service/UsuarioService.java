@@ -14,9 +14,10 @@ import org.springframework.stereotype.Service;
 
 public class UsuarioService {
 
+    @Autowired
     private final UsuarioRepo usuarioRepo;
 
-    @Autowired
+
     public UsuarioService(UsuarioRepo usuarioRepo) {
         this.usuarioRepo = usuarioRepo;
     }
