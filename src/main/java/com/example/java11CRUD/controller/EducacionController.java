@@ -63,8 +63,6 @@ public class EducacionController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    //Y con esto podemos integrar el MVC con la parte de acceso a datos que es Spring JPA repository.
-    
 
     
     
